@@ -9,12 +9,13 @@ const Header = ({onhandleDescription, input, onGetQuantity, quantity}) => {
     <>
     <h1>🏝️ Far Away 🧳</h1>
          <form className="add-form">
-           <h3>What do you need for your 😍 trip?</h3>
+         <h3>What do you need for your 😍 trip?</h3>
            <Select
            value={quantity}
            amount={10}
            onChange={onGetQuantity}/>
           <Input
+          placeholder="Add an item..."
           onChange={onhandleDescription}
           value={input}/>
           <Button>Add Item</Button>

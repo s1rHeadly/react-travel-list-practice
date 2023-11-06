@@ -28,9 +28,8 @@ function App() {
         onhandleDescription={getDescription}
         input={input}
         onGetQuantity={getQuantity}
-        quanity={quanity}
-
-        />
+        quanity={quanity} />
+      
 
         <List />
        <StatsPanel />
