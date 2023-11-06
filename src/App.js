@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import  {useState} from "react";
+import "./App.css";
+import Header from "./components/Header";
+import List from "./components/List";
+import StatsPanel from "./components/StatsPanel";
 
 function App() {
+
+ const [input, setInput] = useState('');
+ const [quanity, setQuantity] = useState(0);
+
+  const getDescription = (e) => {
+        const {target} = e;
+        const value = target.value;
+        setInput(value)
+  }
+
+  const getQuantity = (e) => {
+    const {target} = e;
+    const value = target.value;
+    setQuantity(+value)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="app">
+        <Header
+        onhandleDescription={getDescription}
+        input={input}
+        onGetQuantity={getQuantity}
+        quanity={quanity}
+
+        />
+
+        <List />
+       <StatsPanel />
+      </div>
   );
 }
 
