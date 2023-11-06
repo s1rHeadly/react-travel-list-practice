@@ -28,7 +28,9 @@ function App() {
         onhandleDescription={getDescription}
         input={input}
         onGetQuantity={getQuantity}
-        quanity={quanity} />
+        quanity={quanity}
+        title="What do you need for your trip?"
+        />
       
 
         <List />
