@@ -7,7 +7,7 @@ import StatsPanel from "./components/StatsPanel";
 function App() {
 
  const [input, setInput] = useState('');
- const [quanity, setQuantity] = useState(0);
+ const [quantity, setQuantity] = useState(1);
 
   const getDescription = (e) => {
         const {target} = e;
@@ -28,7 +28,7 @@ function App() {
         onhandleDescription={getDescription}
         input={input}
         onGetQuantity={getQuantity}
-        quanity={quanity}
+        quanity={quantity}
         title="What do you need for your trip?"
         />
       
