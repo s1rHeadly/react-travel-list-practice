@@ -8,6 +8,7 @@ function App() {
 
  const [input, setInput] = useState('');
  const [quantity, setQuantity] = useState(1);
+ const [items, setItems] = useState([]);
 
   const getDescription = (e) => {
         const {target} = e;
@@ -21,6 +22,23 @@ function App() {
     setQuantity(+value)
   }
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    const newItem = {
+      description: input,
+      quantity: quantity,
+      id: Math.trunc(Date.now()),
+      packed: false,
+    }
+
+
+    setItems((prevState) => ([...prevState, newItem]));
+
+    setInput('');
+    setQuantity(1);
+  }
+
+
 
   return (
       <div className="app">
@@ -30,10 +48,11 @@ function App() {
         onGetQuantity={getQuantity}
         quanity={quantity}
         title="What do you need for your trip?"
+        onSubmitForm={submitForm}
+        quantity={quantity}
         />
       
-
-        <List />
+        <List items={items}/>
        <StatsPanel />
       </div>
   );
