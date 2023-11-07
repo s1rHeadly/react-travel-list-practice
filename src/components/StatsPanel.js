@@ -1,9 +1,9 @@
 import React from 'react'
 
-const StatsPanel = () => {
+const StatsPanel = ({itemsLength}) => {
   return (
     <p className="stats">
-    <em>You have 1 items on your list, and you already packed 0 (0%)</em>
+   <em>You have {itemsLength} items on your list, and you already packed 0 (0%)</em>
   </p>
   )
 }

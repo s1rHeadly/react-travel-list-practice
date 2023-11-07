@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Button from './Button';
 
-const ListItem = () => {
+const ListItem = ({item, onHandleCheck}) => {
+
+  const {description, quantity, id, packed} = item;
+
+
   return (
-    <li><input type="checkbox" value="false" />
-    <span>1 asdasd</span><button>❌</button></li>
+    <li>
+    <input
+      type="checkbox"
+      value={packed}
+      onChange={() => onHandleCheck(id)}
+    />
+
+    <span style={packed ? { textDecoration: "line-through" } : {}}> {quantity} {description}</span>
+
+    <Button>❌</Button></li>
   )
 }
 

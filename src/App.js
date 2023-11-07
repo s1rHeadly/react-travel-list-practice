@@ -31,11 +31,21 @@ function App() {
       packed: false,
     }
 
-
+   
     setItems((prevState) => ([...prevState, newItem]));
 
     setInput('');
     setQuantity(1);
+  }
+
+
+  const handleCheckPacked = (id) => { // get the id of the checkbox
+      setItems((prevState) => ( // get the previous state
+        prevState.map((item) => ( // map over it
+          // if the prevState iteration id == id, then create a new object and reverse the value of of packed otherwise return the item
+          item.id === id ? {...item, packed: !item.packed} : item
+        ))
+      ))
   }
 
 
@@ -52,8 +62,8 @@ function App() {
         quantity={quantity}
         />
       
-        <List items={items}/>
-       <StatsPanel />
+       {items.length > 0 && <List items={items} onHandleCheck={handleCheckPacked}/>}
+       <StatsPanel itemsLength={items.length} />
       </div>
   );
 }

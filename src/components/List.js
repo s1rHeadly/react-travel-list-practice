@@ -1,17 +1,16 @@
 import React from 'react'
+import SelectOrdering from './SelectOrdering';
+import ListItem from './ListItem';
 
-const List = () => {
+const List = ({items, onHandleCheck}) => {
   return (
     <div className="list">
-    <ul></ul>
-    <div className="actions">
-      <select>
-        <option value="input">Sort by input order</option>
-        <option value="description">Sort by description</option>
-        <option value="packed">Sort by packed status</option>
-      </select>
-      <button>Clear list</button>
-    </div>
+    <ul>
+      {items.map((item) => (
+        <ListItem item={item} key={item.id} onHandleCheck={onHandleCheck}/>
+      ))}
+    </ul>
+    <SelectOrdering />
   </div>
   )
 }
