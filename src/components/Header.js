@@ -10,7 +10,6 @@ const Header = ({
   onGetQuantity,
   quantity,
   title,
-  onHandleCheck
 }) => {
   return (
     <>

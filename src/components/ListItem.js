@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from './Button';
 
-const ListItem = ({item, onHandleCheck}) => {
+const ListItem = ({item, onHandleCheck, onHandleDeleteItem}) => {
 
   const {description, quantity, id, packed} = item;
 
@@ -16,7 +16,7 @@ const ListItem = ({item, onHandleCheck}) => {
 
     <span style={packed ? { textDecoration: "line-through" } : {}}> {quantity} {description}</span>
 
-    <Button>❌</Button></li>
+    <Button onClick={() => onHandleDeleteItem(id)}>❌</Button></li>
   )
 }
 

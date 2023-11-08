@@ -13,6 +13,7 @@ function App() {
 
  const [input, setInput] = useState('');
  const [quantity, setQuantity] = useState(1);
+ const [packed, setPacked] = useState(0);
  
  // const [watched, setWatched] = useState([]);
  const [items, setItems] = useState(function () {
@@ -23,6 +24,9 @@ function App() {
 
 
 
+// derived state
+const totalItems = items.length || 0;
+let packedNumber = 0; 
 
  // Pure Functions
  //==================
@@ -63,10 +67,9 @@ function App() {
 
   }
 
-
+ 
   // checkbox handler that updates the packed value with the onChange event
   const handleCheckPacked = (id) => { // param is the id of the selected item
-
 
       setItems((prevState) => ( // get the previous state
         prevState.map((item) => ( // map over it
@@ -82,17 +85,39 @@ function App() {
 
 
 
+  const handleDeleteItem = (id) => {
+       const filterId = items.filter((item) => item.id !== id && item)
+       setItems(filterId)
+       localStorage.setItem('allItems', JSON.stringify(items))
+  }
+
+
+
+
+
+  const clearData = () => {
+    setItems([]);
+    localStorage.setItem('allItems', JSON.stringify(items))
+}
 
 
   // useEffects
   //=============
 
-  
+
   //local storage
   useEffect(() => {
    localStorage.setItem('allItems', JSON.stringify(items))
   }, [items]);
 
+
+
+  useEffect(() => {
+    const filteredPacked = items.filter((item) => item.packed ? item : 0);
+    setPacked(filteredPacked.length)
+    localStorage.setItem('allItems', JSON.stringify(items))
+   
+  }, [items])
 
 
 
@@ -106,10 +131,12 @@ function App() {
         title="What do you need for your trip?"
         onSubmitForm={submitForm}
         quantity={quantity}
+        onHandleDeleteItem={handleDeleteItem}
         />
       
-       {items.length > 0 && <List items={items} onHandleCheck={handleCheckPacked}/>}
-       <StatsPanel itemsLength={items.length} />
+       {items.length > 0 && <List items={items} onHandleCheck={handleCheckPacked} onHandleDeleteItem={handleDeleteItem} onClearList={clearData}
+/>}
+       <StatsPanel itemsLength={totalItems} packed={packed}/>
       </div>
   );
 }
