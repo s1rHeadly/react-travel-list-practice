@@ -47,26 +47,6 @@ let packedNumber = 0;
   }
 
 
-  // Submitting the form and passing a new object into the items array
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    const newItem = {
-      description: input,
-      quantity: quantity,
-      id: Math.trunc(Date.now()),
-      packed: false,
-    }
-
-    //spreading the new item into the existing state
-    setItems((prevState) => ([...prevState, newItem]));
-
-    // reset the fields
-    setInput('');
-    setQuantity(1);
-
-  }
-
  
   // checkbox handler that updates the packed value with the onChange event
   const handleCheckPacked = (id) => { // param is the id of the selected item
@@ -88,8 +68,37 @@ let packedNumber = 0;
   const handleDeleteItem = (id) => {
        const filterId = items.filter((item) => item.id !== id && item)
        setItems(filterId)
-       localStorage.setItem('allItems', JSON.stringify(items))
+       // localStorage.setItem('allItems', JSON.stringify(items))
   }
+
+
+
+
+  // Submitting the form and passing a new object into the items array
+  const submitForm = (e) => {
+    e.preventDefault();
+
+    const newItem = {
+      description: input ?? 'No description',
+      quantity: quantity ?? 1,
+      id: Math.trunc(Date.now()),
+      packed: false,
+    }
+
+
+     // could put abother condition in here to show a message??
+
+    if(input.length > 3){
+      //spreading the new item into the existing state
+      setItems((prevState) => ([...prevState, newItem]));
+
+      // reset the fields
+      setInput('');
+      setQuantity(1);
+    }
+
+  }
+
 
 
 
@@ -97,7 +106,7 @@ let packedNumber = 0;
 
   const clearData = () => {
     setItems([]);
-    localStorage.setItem('allItems', JSON.stringify(items))
+    // localStorage.setItem('allItems', JSON.stringify(items))
 }
 
 
@@ -111,13 +120,6 @@ let packedNumber = 0;
   }, [items]);
 
 
-
-  useEffect(() => {
-    const filteredPacked = items.filter((item) => item.packed ? item : 0);
-    setPacked(filteredPacked.length)
-    localStorage.setItem('allItems', JSON.stringify(items))
-   
-  }, [items])
 
 
 
@@ -136,7 +138,7 @@ let packedNumber = 0;
       
        {items.length > 0 && <List items={items} onHandleCheck={handleCheckPacked} onHandleDeleteItem={handleDeleteItem} onClearList={clearData}
 />}
-       <StatsPanel itemsLength={totalItems} packed={packed}/>
+       <StatsPanel items={items}/>
       </div>
   );
 }

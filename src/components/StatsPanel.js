@@ -1,10 +1,13 @@
 import React from 'react'
 
-const StatsPanel = ({itemsLength, packed}) => {
+const StatsPanel = ({items}) => {
+
+
+  const filteredPacked = items?.filter((item) => item.packed).length;
 
   return (
     <p className="stats">
-   <em>You have {itemsLength} items on your list, and you already packed {packed} (0%)</em>
+   <em>You have {items?.length || 0} items on your list, and you already packed {filteredPacked} (0%)</em>
   </p>
   )
 }
