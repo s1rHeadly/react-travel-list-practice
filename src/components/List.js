@@ -5,41 +5,51 @@ import ListItem from './ListItem';
 const List = ({items, onHandleCheck, onHandleDeleteItem, onClearList}) => {
 
 
-const [sorted, setSorted] = useState('input');
+  const [sortBy, setSortBy] = useState("input");
 
 
-  let sortedItems;
+  let sortedItems = [...items];
 
 
-    const sortOrdering = (e) => {
-      
-      const {target} = e;
-      const selected = target.value;
+  const sortByLookupMap = {
+    description: (a, b) => a.description.localeCompare(b.description),
+    packed: (a, b) => Number(a.packed) - Number(b.packed),
+  }
+
+  if(sortByLookupMap[sortBy]){
+    sortedItems = [...items].sort(sortByLookupMap[sortBy])
+  }
 
 
-      switch (selected) {
-        case 'input':
-          sortedItems = items;
-          break;
 
-          case 'description':
-          sortedItems = items.sort((a, b) => a.description.localeCompare(b.description));
-          break;
+  // if (sortBy === "input") sortedItems = [...items];
 
-          case 'packed':
-          sortedItems = items.sort((a, b) => Number(a.packed) - Number(b.packed));
-          break;
-      
-        default:
-          sortedItems = items;
-          break;
-      }
+  // if (sortBy === "description")
+  //   sortedItems = [...items].sort((a, b) => a.description.localeCompare(b.description));
 
-      console.log(selected)
+  // if (sortBy === "packed")
+  //   sortedItems = [...items]
+  //     .slice()
+  //     .sort((a, b) => Number(a.packed) - Number(b.packed));
 
-    }
-   
+
+
+// switch (sortBy) {
  
+//     case 'description':
+//       sortedItems = [...items].sort((a, b) => a.description.localeCompare(b.description));
+//     break;
+
+//     case 'packed':
+//       sortedItems = [...items].sort((a, b) => Number(a.packed) - Number(b.packed));
+//     break;
+
+//   default:
+// }
+ 
+
+
+
 
 
   return (
@@ -50,7 +60,7 @@ const [sorted, setSorted] = useState('input');
       ))}
     </ul>
     <SelectOrdering>
-    <select defaultValue={sorted} onChange={(e) => sortOrdering(e)}>
+    <select defaultValue={sortBy} onChange={(e) => setSortBy(e.target.value)}>
       <option value="input">Sort by input order</option>
       <option value="description">Sort by description</option>
       <option value="packed">Sort by packed status</option>

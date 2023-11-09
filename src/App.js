@@ -13,7 +13,6 @@ function App() {
 
  const [input, setInput] = useState('');
  const [quantity, setQuantity] = useState(1);
- const [packed, setPacked] = useState(0);
  
  // const [watched, setWatched] = useState([]);
  const [items, setItems] = useState(function () {
@@ -23,10 +22,6 @@ function App() {
 
 
 
-
-// derived state
-const totalItems = items.length || 0;
-let packedNumber = 0; 
 
  // Pure Functions
  //==================
@@ -38,7 +33,7 @@ let packedNumber = 0;
         setInput(value)
   }
 
-
+  
   // get the value of the selected quantity
   const getQuantity = (e) => {
     const {target} = e;
@@ -58,24 +53,25 @@ let packedNumber = 0;
         ))
       ))
 
-      // set localstorage again to update the data 
-      localStorage.setItem('allItems', JSON.stringify(items))
+    
 
   }
 
 
-
+// delete Item handler
   const handleDeleteItem = (id) => {
        const filterId = items.filter((item) => item.id !== id && item)
        setItems(filterId)
-       // localStorage.setItem('allItems', JSON.stringify(items))
+      
   }
 
 
 
 
   // Submitting the form and passing a new object into the items array
+
   const submitForm = (e) => {
+
     e.preventDefault();
 
     const newItem = {
@@ -100,14 +96,14 @@ let packedNumber = 0;
   }
 
 
-
-
-
-
+  // clear the data
   const clearData = () => {
     setItems([]);
-    // localStorage.setItem('allItems', JSON.stringify(items))
-}
+  
+  }
+
+
+
 
 
   // useEffects
@@ -118,7 +114,6 @@ let packedNumber = 0;
   useEffect(() => {
    localStorage.setItem('allItems', JSON.stringify(items))
   }, [items]);
-
 
 
 
